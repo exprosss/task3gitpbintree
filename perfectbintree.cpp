@@ -194,26 +194,26 @@ void print(tree* tr, int k) {
     }
 }
 
-int countleaves(tree* tr) {
-    if (!tr) {
-        return 0; // если дерево пустое, то кол-во листьев 0
+void yzelklevel(tree* tr, int k) {
+    if (tr == NULL) {
+        return;  // если дерево пустое
     }
-    else if (!tr->left && !tr->right) {
-        return 1; // если у узла нет левого и правого поддерева,значит это лист, тогда возвращаем 1.
+    if (k == 0) {
+        cout << tr->inf << " "; // вывод значения узла, если мы достигли нужного уровня
     }
     else {
-        return countleaves(tr->left) + countleaves(tr->right); // рекурсивно считаем листья в левом и правом поддереве
+        yzelklevel(tr->left, k - 1); // рекурсивно вызываем функцию для левого и правого поддеревьев с уровнем, уменьшенным на 1
+        yzelklevel(tr->right, k - 1);
     }
 }
-
 int main() {
     tree* tr = NULL;
-    int n, x;
+    int n, x, level;
+    cout << "level = "; cin >> level;
     in >> n;
     create(tr, n);
     int k = int(log((float)n) / log((float)2.0));
     print(tr, k);
     cout << endl;
-    cout << "kol-vo listiev: ";
-    cout << countleaves(tr);
+    yzelklevel(tr, level);
 }
